@@ -1,0 +1,26 @@
+db.Cart.insertOne({_id: 001,model: "s"})
+
+db.Warehouse.insertMany([{_id: 1000,location: "1818 Quebec Street, Vancouver", wName: "Quebec Street"},
+{_id: 1001,location: "33 Commercial Drive, Vancouver", wName: "Commercial Drive"},
+{_id: 1002,location: "3240 No. 4 Road, Richmond", wName: "Richmond"},
+{_id: 1003,location: "3001 Wall Street, Vancouver", wName: "Wall Street"},
+{_id: 1004,location: "250 Taylor Way, West Vancouver", wName: "West Vancouver"}])
+
+db.Employee.insertMany([{_id: 121,eName: "Bob", warehouseID: 1000},
+{_id: 454,eName: "Tom", warehouseID: 1000},
+{_id: 132,eName: "Sam", warehouseID: 1000},
+{_id: 865,eName: "Kim", warehouseID: 1000}])
+
+db.Customer.insertMany([{_id: 8385047,cName: "Baguette", phoneNum: 6048059783},
+{_id: 8381234,cName: "Leonardo Dicaprio", phoneNum: 6048059783},
+{_id: 8384567,cName: "Brad Pitt", phoneNum: 6048059783},
+{_id: 8383569,cName: "Robert De Niro", PhoneNum: 6048059783}])
+
+
+Lookup Employees Under each Warehouse
+db.Warehouse.aggregate([
+{$lookup: {       from: "Employee",
+                  localField: "_id",
+                  foreignField: "warehouseID",
+                  as: "Employees"}}
+])
